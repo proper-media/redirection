@@ -309,6 +309,13 @@ class Red_Item {
 
 				$this->visit( $url, $target );
 
+				$request_uri = $_SERVER['REQUEST_URI'];
+				
+				if(strpos($request_uri, '?') !== false) {
+					$target .= strpos($target, '?') !== false ? '&' : '?';
+					$target .= parse_url($request_uri, PHP_URL_QUERY);
+				}
+
 				if ( $this->status === 'enabled' )
 					return $this->action->process_before( $this->action_code, $target );
 			}

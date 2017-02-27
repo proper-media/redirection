@@ -36,6 +36,10 @@ class WordPress_Module extends Red_Module {
 	public function init() {
 		$url = $_SERVER['REQUEST_URI'];
 
+		if(strpos($url, '?') !== false) {
+			$url = parse_url($url, PHP_URL_PATH);
+		}
+
 		// Make sure we don't try and redirect something essential
 		if ( ! $this->protected_url( $url ) && $this->matched === false ) {
 			do_action( 'redirection_first', $url, $this );
